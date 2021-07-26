@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ReactiveArch</string>
+    <string name="location_not_enabled">Location is not enabled</string>
+    <string name="enable_location">Enable location</string>
+    <string name="enable">Enable</string>
+    <string name="deny">Deny</string>
+    <string name="accept">Accept</string>
+    <string name="location_denied">Location is denied</string>
+    <string name="location_alert">Location permission is needed to be able to get the restaurants around you</string>
 </resources>
