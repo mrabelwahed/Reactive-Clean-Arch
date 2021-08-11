@@ -2,10 +2,12 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
 }
 
 android {
-    compileSdkVersion  Android.compileSDK
+    compileSdkVersion Android.compileSDK
     buildToolsVersion "30.0.3"
 
     defaultConfig {
@@ -14,7 +16,7 @@ android {
         targetSdkVersion Android.targetSDK
         versionCode Android.versionCode
         versionName Android.versionName
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -35,15 +37,21 @@ android {
     def localProperties = new Properties()
     localProperties.load(new FileInputStream("local.properties"))
 
-    buildTypes{
-        debug{
-            resValue("string","google_map_api_key",localProperties['MAPS_API_KEY'])
+    buildTypes {
+        debug {
+            resValue("string", "google_map_api_key", localProperties['MAPS_API_KEY'])
+            resValue("string", "foursquare_cleint_id", localProperties['CLIENT_ID'])
+            resValue("string", "foursquare_client_secret", localProperties['CLIENT_SECRET'])
         }
     }
+
+    buildFeatures {
+        viewBinding true
+    }
+
 }
 
 dependencies {
-
     implementation Libs.kotlinStdLib
     implementation Libs.coreExt
     implementation Libs.appCompat
@@ -54,7 +62,17 @@ dependencies {
     implementation Libs.permissionsDispatcher
     kapt Libs.permissionsDispatcherProcessor
     implementation Libs.timber
-
+    implementation Libs.hiltAndroid
+    kapt Libs.hiltAndroidCompiler
+    implementation Libs.rxVersion
+    implementation Libs.rxAndroid
+    implementation Libs.retrofit
+    implementation Libs.gson
+    implementation Libs.gsonConverter
+    implementation Libs.rxAdapter
+    implementation Libs.loggingInterceptor
+    implementation Libs.fragmentKtx
+    implementation Libs.multidex
     //test libs
     testImplementation TestLibs.junit
     androidTestImplementation TestLibs.junit
